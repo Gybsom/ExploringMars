@@ -32,22 +32,29 @@ defmodule Exploringmars do
 
     probeX = Enum.at(probeCoords, 0) |> String.to_integer
     probeY = Enum.at(probeCoords, 1) |> String.to_integer
-    #listCardinals = []
-    cardinals = Enum.at(probeCoords, 2)
+    cardinal = Enum.at(probeCoords, 2)
+    listCardinals = []
 
-
-    #for x <- Enum.count(cardinals) do
-      #if x == "L" or x == "R" do
-     #   [(rotate(x, List.first(listCardinals))) | listCardinals]
-     # end
-    #end
-    Enum.each(probeMoves, fn x ->
-        if x == "L" or x == "R" do
-          IO.puts inspect(rotate(x, rotate(x, cardinals)))
+    for x <- Enum.count(probeMoves) do
+      if Enum.at(probeMoves, x) == "L" || Enum.at(probeMoves, x) == "R" do
+        if Enum.count(listCardinals) > 0 do
+          listCardinals ++ rotate(Enum.at(probeMoves, x), List.last(listCardinals))
+        else
+          listCardinals ++ rotate(Enum.at(probeMoves, x), cardinal)
         end
-      end)
 
-      #Enum.each(probeMoves,
+      end
+    end
+
+    #Enum.each(probeMoves, fn x ->
+    #  if x == "L" or x == "R" do
+    #    IO.puts rotate(x, rotate(x, cardinal))
+    #  end
+    #end)
+
+
+
+    #Enum.each(probeMoves,
       #fn x -> cond do
         #x == "L" -> probeCardinal = rotate(x, probeCardinal)
         #x == "R" -> probeCardinal = rotate(x, probeCardinal)
